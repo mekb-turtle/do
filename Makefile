@@ -18,10 +18,10 @@ $(TARGET): $(OBJS)
 	$(CC) -c $(CFLAGS) -o $@ $<
 
 install:
-	install -vDm6755 -- $(TARGET) $(DESTDIR)/bin/
+	install -vDm6755 -- $(TARGET) $(DESTDIR)/sbin/
 
 uninstall:
-	cd -- $(DESTDIR)/bin/ && rm -fv -- $(TARGET)
+	cd -- $(DESTDIR)/sbin/ && rm -fv -- $(TARGET)
 
 clean:
 	rm -fv -- $(OBJS) $(TARGET)

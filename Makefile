@@ -1,4 +1,5 @@
 CC=cc
+DESTDIR=/usr/local
 CFLAGS=-Wall -O2
 LFLAGS=-lm -s
 
@@ -15,6 +16,12 @@ $(TARGET): $(OBJS)
 
 %.o: %.c
 	$(CC) -c $(CFLAGS) -o $@ $<
+
+install:
+	install -vDm6755 -- $(TARGET) $(DESTDIR)/bin/
+
+uninstall:
+	cd -- $(DESTDIR)/bin/ && rm -fv -- $(TARGET)
 
 clean:
 	rm -fv -- $(OBJS) $(TARGET)

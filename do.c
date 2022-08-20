@@ -13,7 +13,8 @@ void help() {
 	eprintf("Invalid option, valid ones are\n\
 shutdown: poweroff\n\
 restart: reboot\n\
-suspend: s2both\n");
+suspend1: s2disk\n\
+suspend2: s2both");
 }
 void run(char* cmd) {
 	// execute cmd, with argv0 = cmd, with no environment variables
@@ -81,7 +82,9 @@ int main(int argc, char* argv[]) {
 		run("/usr/sbin/poweroff");
 	else if (strcmp(argv[1], "restart") == 0)
 		run("/usr/sbin/reboot");
-	else if (strcmp(argv[1], "suspend") == 0)
+	else if (strcmp(argv[1], "suspend1") == 0)
+		run("/usr/sbin/s2disk");
+	else if (strcmp(argv[1], "suspend2") == 0)
 		run("/usr/sbin/s2both");
 	else { help(); return 2; }
 	return 0;

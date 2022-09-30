@@ -14,7 +14,8 @@ void help() {
 shutdown: poweroff\n\
 restart: reboot\n\
 suspend1: s2disk\n\
-suspend2: s2both");
+suspend2: s2both\n\
+");
 }
 void run(char* cmd) {
 	// execute cmd, with argv0 = cmd, with no environment variables

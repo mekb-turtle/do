@@ -6,24 +6,24 @@
 #include <grp.h>
 #include <pwd.h>
 #include <unistd.h>
-#define DO_GROUP "p"
+#define DO_GROUP "do"
 #define eprintf(...) fprintf(stderr, __VA_ARGS__)
 #define strerr (errno == 0 ? "Error" : strerror(errno))
 void help() {
 	eprintf("Invalid option, valid ones are\n\
 shutdown: poweroff\n\
-restart: reboot\n\
-suspend1: s2disk\n\
-suspend2: s2both\n\
+restart: reboot\n"
+//suspend: s2disk\n
+"hidesplash: plymouth --hide-splash\n\
 ");
 }
-void run(char* cmd) {
+void run(char* cmd, char* args[]) {
 	// execute cmd, with argv0 = cmd, with no environment variables
 	if (clearenv() != 0) {
 		eprintf("clearenv failure\n");
 		return;
 	}
-	execvp(cmd, (char*[]) { cmd, NULL });
+	execvp(cmd, args);
 	eprintf("execvpe: %s: %s\n", cmd, strerr);
 }
 bool getgrouplist_(const char *user, gid_t group, gid_t **groups_, int *ngroups_) {
@@ -80,13 +80,15 @@ int main(int argc, char* argv[]) {
 	}
 	if (argc != 2) { help(); return 2; }
 	else if (strcmp(argv[1], "shutdown") == 0)
-		run("/usr/sbin/poweroff");
+		run("/usr/sbin/poweroff", (char*[]) { "poweroff", NULL });
 	else if (strcmp(argv[1], "restart") == 0)
-		run("/usr/sbin/reboot");
-	else if (strcmp(argv[1], "suspend1") == 0)
-		run("/usr/sbin/s2disk");
+		run("/usr/sbin/reboot", (char*[]) { "reboot", NULL });
+/*	else if (strcmp(argv[1], "suspend1") == 0)
+		run("/usr/sbin/s2disk", (char*[]) { "s2disk", NULL });
 	else if (strcmp(argv[1], "suspend2") == 0)
-		run("/usr/sbin/s2both");
+		run("/usr/sbin/s2both", (char*[]) { "s2both", NULL });*/
+	else if (strcmp(argv[1], "hidesplash") == 0)
+		run("/usr/sbin/plymouth", (char*[]) { "plymouth", "--hide-splash", NULL });
 	else { help(); return 2; }
 	return 0;
 }

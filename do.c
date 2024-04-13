@@ -14,8 +14,8 @@ void help() {
 shutdown: poweroff\n\
 restart: reboot\n"
 //suspend: s2disk\n
-"hidesplash: plymouth --hide-splash\n\
-");
+//"hidesplash: plymouth --hide-splash\n"
+);
 }
 void run(char* cmd, char* args[]) {
 	// execute cmd, with argv0 = cmd, with no environment variables
@@ -86,9 +86,9 @@ int main(int argc, char* argv[]) {
 /*	else if (strcmp(argv[1], "suspend1") == 0)
 		run("/usr/sbin/s2disk", (char*[]) { "s2disk", NULL });
 	else if (strcmp(argv[1], "suspend2") == 0)
-		run("/usr/sbin/s2both", (char*[]) { "s2both", NULL });*/
+		run("/usr/sbin/s2both", (char*[]) { "s2both", NULL });
 	else if (strcmp(argv[1], "hidesplash") == 0)
-		run("/usr/sbin/plymouth", (char*[]) { "plymouth", "--hide-splash", NULL });
+		run("/usr/sbin/plymouth", (char*[]) { "plymouth", "--hide-splash", NULL });*/
 	else { help(); return 2; }
 	return 0;
 }

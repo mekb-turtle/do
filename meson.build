@@ -17,5 +17,5 @@ add_project_arguments(
   f'-DPROJECT_URL="@url@"',
   language : 'c')
 
-exe = executable('do', sources: src, install: true)
+exe = executable('do', sources: src, install: true, install_mode: ['rwsr-xr-x', 'root', 'root'])
 

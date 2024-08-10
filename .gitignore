@@ -1,3 +1,7 @@
-do
+build/
 *.o
-*.swp
+*.d
+*.tmp
+.idea/
+.vs/
+.vscode/
